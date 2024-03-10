@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Network</title>
+    <style>
+        body {
+            margin: 0px;
+            background-color: #111;
+            font-family: "Roboto";
+            color: white;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #333;
+            width: 14px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #444;
+        }
+        * {box-sizing: border-box;}
+        .navbar {
+            width: 75vw;
+            margin-left: 12.5vw;
+            margin-top: 6vh;
+            display: flex;
+            justify-content: space-between;
+        }
+        .network {
+            width: 20vw;
+            padding: 0.25em;
+            border: 1px solid #444;
+            border-radius: 10px;
+            text-align: center;
+            color: #ccc;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .network img {
+            width: 1em;
+            height: 1em;
+            object-fit: cover;
+        }
+        .mainNav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 29vw;
+            background-color: #191919;
+            border-radius: 10px;
+        }
+        .mainNavItem {
+            padding: 0.4em 0.6em;
+            color: #555;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .mainNavItem:hover {
+            color: #bbb;
+        }
+        .currentDate {
+            display: flex;
+            padding: 0.4em 0.2em;
+            width: 16vw;
+            justify-content: center;
+            gap: 0.5vw;
+            border: 1px solid #444;
+            border-radius: 10px;
+            cursor: default;
+        }
+        .currentDate p {
+            margin: 0px;
+            height: auto;
+            vertical-align: middle;
+            align-self: center;
+            font-family: Arial;
+            color: #ccc;
+        }
+        .currentDate p.dateWithP {
+            font-size: 0.8em;
+            color: #666;
+            align-self: center;
+        }
+        .logIn {
+            padding: 0.4em;
+            color: #ccc;
+            width: 8vw;
+            border: 1px solid #444;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .logIn:hover {
+            background-color: #bbb;
+            color: black;
+        }
+        .circlesContainer {
+            display: flex;
+            width: 111vw;
+            margin-left: -5.5vw;
+            margin-top: 5vh;
+            position: relative;
+        }
+        .circle {
+            width: 37vw;
+            border: 1px solid #444;
+            border-radius: 50vw;
+            height: 37vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .circle.middleCircle {
+            background-image: linear-gradient(to bottom left, #773224, #111 40% 60%, #382825)
+        }
+        .flexWithinCircle {
+            display: flex;
+            flex-direction: column;
+        }
+        .flexWithinCircle .circleSmallHeading {
+            color: #ddd;
+            margin: 0px;
+            margin-bottom: 0.6vh;
+            font-size: 1.6vw;
+        }
+        .flexWithinCircle .circleSmallDescription {
+            color: #999;
+            margin: 0px;
+            font-size: 1vw;
+        }
+        .shmolLine {
+            margin: 4.5vh 0px;
+            background-color: #999;
+            height: 2px;
+            width: 5vw;
+        }
+        .absoluteHeader {
+            position: absolute;
+            width: 58vw;
+            top: 50%;
+            left: 50%;
+            transform: translate(-29vw, -9vw);
+        }
+        .absoluteHeader p {
+            color: #ccc;
+            margin: 0px;
+            margin-bottom: 1.2vw;
+            text-align: center;
+            font-size: 1.1vw;
+        }
+        .absoluteHeader h1 {
+            text-align: center;
+            font-size: 4.4vw;
+            margin: 0px;
+            font-weight: 400;
+        }
+        .arrowWalaCircle {
+            font-size: 1.6vw;
+            border: 1px solid #444;
+            display: inline-block;
+            border-radius: 10vw;
+            margin-left: 26vw;
+            margin-top: 2vw;
+            width: 6vw;
+            height: 6vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .arrowWalaCircle:hover {
+            background-color: #bbb;
+            color: #000;
+        }
+        .absoluteArrow {
+            position: absolute;
+            margin: 0px;
+            top: 50%;
+            left: 5.8%;
+            transform: translateY(-3vw);
+        }
+        .absoluteArrowRight {
+            right: 5.8%;
+            left: inherit;
+        }
+        .slideShow {
+            width: 80vw;
+            display: flex;
+            justify-content: space-between;
+            margin-left: 10vw;
+            margin-top: 8vh;
+        }
+        .slideShowCard {
+            border: 1px solid #444;
+            border-radius: 10px;
+            display: flex;
+        }
+        .slideShowUnSelected {
+            width: 14vw;
+            padding: 2vw 3vw;
+        }
+        .slideShowSelected {
+            background-color: #fd532f;
+            color: black;
+            width: 35vw;
+            justify-content: space-between;
+            padding: 1vw;
+            align-items: center;
+        }
+        .slideShowPinkCircle {
+            background-color: #fd532f;
+            color: black;
+            width: 2.6vw;
+            height: 2.6vw;
+            padding: 0.8vw;
+            font-size: 1vw;
+            text-align: center;
+            border: 1px solid #111;
+            border-radius: 50px;
+            font-size: 0.9vw;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .selectedWalaPink:hover {
+            background-color: black;
+            color: #fff;
+        }
+        .slideShowBlankCircle {
+            width: 2.6vw;
+            height: 2.6vw;
+            border: 1px solid #444;
+            border-radius: 50px;
+        }
+        .selectedCardButtons {display: flex;}
+        .selectedCardTextAndButtons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .selectedCardText {
+            width: 20vw;
+            margin-left: 1vw;
+            font-size: 1vw;
+            font-weight: 500;
+        }
+        .selectedCardSideArrow {
+            font-size: 1.3vw;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .selectedCardSideArrow:hover {
+            transform: scale(1.2, 1.2);
+        }
+        .sideImages {
+            display: flex;
+            justify-content: space-between;
+            width: 12vw;
+            padding: 0.5vw;
+            /* border: 1px solid white; */
+            align-items: center;
+        }
+        .sideImages img {
+            border-radius: 50px;
+            width: 3vw;
+            height: 3vw;
+            object-fit: cover;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .sideImages img:not(:first-child):hover {
+            z-index: 4;
+            transform: scale(1.2, 1.2) translateX(-0.8vw);
+        }
+        .sideImages img:last-child:hover {
+            z-index: 4;
+            transform: scale(1.2, 1.2) translateX(-1.6vw);
+        }
+        .sideImages img:first-child:hover {
+            z-index: 4;
+            transform: scale(1.2, 1.2);
+        }
+        .sideImages img:not(:first-child) {
+            transform: translateX(-0.8vw);
+            z-index: 2;
+            position: relative;
+        }
+        .sideImages img:first-child {
+            z-index: 1;
+            position: relative;
+        }
+        .sideImages img:last-child {
+            transform: translateX(-1.6vw);
+            z-index: 3;
+            position: relative;
+        }
+        .section {
+            width: 80vw;
+            margin-left: 10vw;
+            margin-top: 10vw;
+        }
+        .sectionHeader {
+            display: flex;
+            gap: 1.5vw;
+            align-items: center;
+        }
+        .sectionHeader p {
+            font-size: 1.6em;
+            margin: 0px;
+        }
+        .sectionHeader div {
+            background-color: #ccc;
+            padding: 10px 6vw;
+            font-size: 1.4em;
+            color: black;
+            margin: 0px;
+            text-align: center;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .sectionHeader img {
+            vertical-align: middle;
+            width: 1em;
+            height: 1em;
+            object-fit: cover;
+            display: inline;
+        }
+        .sectionText {
+            font-size: 3vw;
+            line-height: 1.4;
+            margin-top: 2vw;
+            background: linear-gradient(to bottom, #93f6ff, #967ebf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sectionTextLine {
+            background: linear-gradient(to bottom, #ddd, #967ebf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sectionSquare {
+            display: inline;
+            background-color: #fd532f;
+            padding: 1.4vw 1.6vw;
+            border-radius: 0.6vw;
+            color: black;
+            background-clip: initial;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            font-size: 1vw;
+            vertical-align: middle;
+        }
+        .sectionSquare img {
+            width: 1.3vw;
+            height: 1.3vw;
+            vertical-align: middle;
+        }
+        .sectionSquare span {
+            font-size: 1vw;
+            vertical-align: middle;
+            margin-left: 0.4vw;
+        }
+        .sectionTextLine > i, .sectionTextWhite > i {
+            font-size: 0.8em;
+            margin: 0px 0.9vw;
+        }
+        .sectionTextWhite {
+            background-clip: initial;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            background-color: transparent;
+            color: white;
+        }
+        .sectionGrid {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.2vw;
+        }
+        .sectionGridItem {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4vw;
+            width: 26vw;
+        }
+        .sectionGridImg {
+            width: 26vw;
+            height: 27vw;
+            object-fit: cover;
+            border-radius: 1.5vw;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .sectionGridImg:hover {
+            transform: scale(1.05, 1.05);
+        }
+        .sectionGridHeading {
+            margin: 0px;
+            margin-top: 1vw;
+            color: white;
+            font-size: 1.7vw;
+        }
+        .sectionGridText {
+            margin: 0px;
+            color: #555;
+            font-size: 1.4vw;
+            margin-top: 0.3vw;
+        }
+        .shareIt {
+            width: 26vw;
+            background-color: #fd532f;
+            padding: 1vw 1.5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.6vw;
+            border-radius: 1.5vw;
+            color: black;
+            margin-bottom: 0.6vw;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .shareIt:hover {
+            transform: scale(1.05, 1.05);
+        }
+        .shareIt i {
+            font-size: 1.6vw;
+        }
+        .investorsGrid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 97vw;
+            margin-left: 1.5vw;
+        }
+        .investorsNav {
+            width: 5vw;
+            height: 5vw;
+            border: 1px solid #444;
+            border-radius: 5vw;
+            font-size: 1.5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .investorsNav:hover {
+            background-color: #bbb;
+            color: black;
+        }
+        .investorsCircles {
+            width: 80vw;
+            justify-content: space-between;
+            display: flex;
+            margin: 2.5vw 0;
+        }
+        .investorsCircle {
+            width: 15.5vw;
+            height: 15.5vw;
+            border: 1px solid #444;
+            border-radius: 15vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: default;
+            transition: 0.2s;
+        }
+        .investorsGoCircle {
+            background-color: #444;
+            font-size: 1.2vw;
+            border: 1px solid #555;
+            border-radius: 4vw;
+            width: 4vw;
+            height: 4vw;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            align-items: center;
+        }
+        .investorsGoCircle:hover {
+            transform: scale(1.1, 1.1);
+        }
+        .investorsCircle img {
+            width: 5vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="network"><img src="logoWhite.png"> &nbsp;Network</div>
+        <div class="mainNav">
+            <div class="mainNavItem" style="color: #bbb;">About</div>
+            <div class="mainNavItem">Products</div>
+            <div class="mainNavItem">Solutions</div>
+            <div class="mainNavItem">Company</div>
+        </div>
+        <div class="currentDate">
+            <p id="day">Sat</p>
+            <p class="dateWithP" id="date">March 9, 2024</p>
+        </div>
+        <div class="logIn">Login &nbsp;<i class="fas fa-caret-right"></i></div>
+    </div>
+    <div class="circlesContainer">
+        <div class="circle">
+            <div class="flexWithinCircle">
+                <p class="circleSmallHeading" id="totalLocked"></p>
+                <p class="circleSmallDescription">Total locked</p>
+                <div class="shmolLine"></div>
+                <p class="circleSmallHeading" id="marketSize"></p>
+                <p class="circleSmallDescription">Market Size</p>
+            </div>
+        </div>
+        <div class="circle middleCircle"></div>
+        <div class="circle">
+            <div class="flexWithinCircle">
+                <p class="circleSmallHeading">1k+</p>
+                <p class="circleSmallDescription">Awards</p>
+                <div class="shmolLine"></div>
+                <p class="circleSmallHeading" id="transactions"></p>
+                <p class="circleSmallDescription">Transactions</p>
+            </div>
+        </div>
+        <div class="absoluteHeader">
+            <p>AI-Powered system suggests personalized<br>content based on user preferences</p>
+            <h1>Next level of <span style="color: #fc532f"><i class="fas fa-bolt"></i> crypto</span> and<br> <span style="color: #fc532f"><i class="fas fa-hashtag"></i> fintech</span> product</h1>
+            <div class="arrowWalaCircle"><i class="fas fa-location-arrow"></i></div>
+        </div>
+        <div class="arrowWalaCircle absoluteArrow"><i class="fas fa-arrow-left"></i></div>
+        <div class="arrowWalaCircle absoluteArrow absoluteArrowRight"><i class="fas fa-arrow-right"></i></div>
+    </div>
+    <div class="slideShow">
+        <div class="slideShowCard slideShowUnSelected">
+            <div class="slideShowPinkCircle">1</div>
+            <div class="slideShowBlankCircle"></div>
+            <div class="slideShowBlankCircle"></div>
+        </div>
+        <div class="slideShowCard slideShowSelected">
+            <div class="selectedCardTextAndButtons">
+                <div class="selectedCardButtons">
+                    <div class="slideShowPinkCircle selectedWalaPink">1</div>
+                    <div class="slideShowPinkCircle" style="background-color: black; color: white;">2</div>
+                    <div class="slideShowPinkCircle selectedWalaPink">3</div>
+                </div>
+                <div class="selectedCardText">The logo of the largest bubble company has become our flag in the fight against lies!</div>
+            </div>
+            <div class="selectedCardSideArrow"><i class="fas fa-location-arrow"></i></div>
+        </div>
+        <div class="slideShowCard slideShowUnSelected">
+            <div class="slideShowBlankCircle"></div>
+            <div class="slideShowBlankCircle"></div>
+            <div class="slideShowPinkCircle">3</div>
+        </div>
+        <div class="sideImages">
+            <div class="theImages">
+                <img src="https://static.vecteezy.com/system/resources/previews/019/896/012/original/female-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png">
+                <img src="https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww">
+            </div>
+            <div class="selectedCardSideArrow" style="transform: translateX(-0.5vw)"><i class="fas fa-location-arrow"></i></div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="sectionHeader">
+            <p>01</p>
+            <div><span>About&nbsp;&nbsp;</span><img src="logoBlack.png"><span>&nbsp;Network</span></div>
+        </div>
+        <div class="sectionText">
+            <div class="sectionTextLine">Our team <div class="sectionSquare"><i class="fas fa-plus"></i></div> has been creating<i class="fas fa-bolt"></i>a unique and powerful</div>
+            <div class="sectionTextLine">crypto and fintech product for <div class="sectionSquare"><img src="logoBlack.png"><span>Network</span></div><span class="sectionTextWhite">&nbsp;5 years.</span></div>
+            <div class="sectionTextLine">A team of <span class="sectionTextWhite">20+<i class="fas fa-laugh-beam"></i>people</span></div>
+        </div>
+        <div class="sectionGrid">
+            <div class="sectionGridItem">
+                <img src="https://www.thedesignwork.com/wp-content/uploads/2011/10/Random-Pictures-of-Conceptual-and-Creative-Ideas-02.jpg" class="sectionGridImg">
+                <p class="sectionGridHeading">Constant monitoring</p>
+                <p class="sectionGridText">Monitor domains, websites, app stores and others.</p>
+            </div>
+            <div class="sectionGridItem">
+                <div class="shareIt">
+                    <p>SHARE IT</p>
+                    <i class="fas fa-arrow-alt-circle-right"></i>
+                </div>
+                <img src="https://www.thedesignwork.com/wp-content/uploads/2011/10/Random-Pictures-of-Conceptual-and-Creative-Ideas-02.jpg" class="sectionGridImg">
+                <p class="sectionGridHeading">AI-based detection</p>
+                <p class="sectionGridText">Out of the box detection for phishing, brand infringement, scams and typosquat attacks.</p>
+            </div>
+            <div class="sectionGridItem">
+                <img src="https://www.thedesignwork.com/wp-content/uploads/2011/10/Random-Pictures-of-Conceptual-and-Creative-Ideas-02.jpg" class="sectionGridImg">
+                <p class="sectionGridHeading">Automatic triage</p>
+                <p class="sectionGridText">Neutralize threats without human intervention.</p>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="sectionHeader">
+            <p>02</p>
+            <div><span>Investers of&nbsp;&nbsp;</span><img src="logoBlack.png"><span>&nbsp;Network</span></div>
+        </div>
+        <div class="sectionText">
+            <div class="sectionTextLine">Our investors of<i class="fas fa-bahai" style="color: #fd532f; background-color: transparent; background-clip: initial; -webkit-background-clip: initial; -webkit-text-fill-color: initial; font-size: 1.5vw; vertical-align: middle;"></i>Network project</div>
+        </div>
+    </div>
+    <div class="investorsGrid">
+        <div class="investorsNav"><i class="fas fa-arrow-left"></i></div>
+        <div class="investorsCircles">
+            <div class="investorsCircle">
+                <img src="ship.png">
+            </div>
+            <div class="investorsCircle">
+                <img src="weirdX.png">
+            </div>
+            <div class="investorsCircle">
+                <img src="eagle.png">
+            </div>
+            <div class="investorsCircle" style="background-color: #fd532f;">
+                <img src="slice.png">
+                <div class="investorsGoCircle"><i class="fas fa-arrow-right"></i></div>
+            </div>
+            <div class="investorsCircle">
+                <img src="petal.png">
+            </div>
+        </div>
+        <div class="investorsNav"><i class="fas fa-arrow-right"></i></div>
+    </div>
+    <script>
+        window.onscroll = (e) => {
+            window.scrollTo(0, window.scrollY)
+        }
+        window.onload = () => {
+            const newDate = new Date()
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            const monthsOfYear = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            document.getElementById('day').innerHTML = daysOfWeek[newDate.getDay()]
+            document.getElementById('date').innerHTML = `${monthsOfYear[newDate.getMonth()]} ${newDate.getDate()}, ${newDate.getFullYear()}`
+            const totalLocked = 93,
+                marketSize = 3.2,
+                transactions = 221
+            var totalLockedVar = 0
+            var marketSizeVar = 0
+            var transactionsVar = 1
+            window.setInterval(() => {
+                if (totalLockedVar !== 93) totalLockedVar += 1
+                if (Number(marketSizeVar) != 3.2) marketSizeVar = Number((marketSizeVar + 0.05).toFixed(2))
+                if (transactionsVar != 221) transactionsVar += 2
+                document.getElementById('totalLocked').innerHTML = `${totalLockedVar}m+`
+                document.getElementById('marketSize').innerHTML = `${marketSizeVar}b`
+                document.getElementById('transactions').innerHTML = `${transactionsVar}k+`
+            }, 15)
+        }
+        </script>
+</body>
+</html>
